@@ -14,7 +14,7 @@ get '/' do
   erb :index
 end
 
- get "/register/:mac/:loc_id" do
+ get "/register/:mac" do
    #find or create device
    @device = Device.find_or_create(:mac=>params[:mac])
    #find or create location -> create should eventually be done by client
@@ -23,7 +23,8 @@ end
  end
  
  get '/locations' do 
-   
+   @locations = Location.all
+   erb :locations
  end
  
  get '/devices' do
