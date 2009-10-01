@@ -15,8 +15,8 @@ class Device
     device = Device.first(:mac=>opts[:mac])
     unless device
       device = Device.new(:mac=>opts[:mac]) 
-      device.save
-      puts "created!"
+      saved = device.save
+      puts "created: #{saved}"
     end
     puts device.inspect
     puts "=="*45
