@@ -11,7 +11,10 @@ class Device
   
   def self.find_or_create(opts={})
     device = Device.first(:mac=>opts[:mac])
-    device = Device.create(:mac=>opts[:mac]) unless device
+    unless device
+      device = Device.new(:mac=>opts[:mac]) 
+      device.save
+    end
     return device
   end
 end
