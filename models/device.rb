@@ -10,11 +10,16 @@ class Device
   validates_is_unique :mac
   
   def self.find_or_create(opts={})
+    puts "=="*45
+    puts "finding or creating #{opts[:mac]}"
     device = Device.first(:mac=>opts[:mac])
     unless device
       device = Device.new(:mac=>opts[:mac]) 
       device.save
+      puts "created!"
     end
+    puts device.inspect
+    puts "=="*45
     return device
   end
 end

@@ -6,5 +6,6 @@ macs = macs.split("\n")
 puts macs.inspect
 puts macs.length
 macs.each do |mac|
-  open("http://0.0.0.0:3000/register/#{mac}/loc1")
+  # url = ENV['RACK_ENV'].include?("development") ? '0.0.0.0:3000' : 'pingcache.heroku.com'
+  open("http://pingcache.heroku.com/register/#{mac}/loc1")
 end
