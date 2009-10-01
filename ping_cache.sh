@@ -1,5 +1,3 @@
 #!/bin/sh
-broadcast_ip=`ifconfig | grep broadcast | cut -d " " -f6`
-ping -c 2 ${broadcast_ip}
-arp -a
-
+ifconfig | grep broadcast | cut -d " " -f6 | xargs -0 ping -c2; 
+arp -a | cut -d" " -f4

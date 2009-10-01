@@ -1,0 +1,19 @@
+<%if @devices.length > 0 %>
+<h2>Devices (<%= @devices.length %>)</h2>
+<table cellspacing=0 cellpadding=5>
+  <tr>
+    <% @devices.first.attributes.keys.each do |key| %>
+      <th> <%= key %> </th>
+    <% end %>
+  </tr>
+  <%for device in @devices %>
+    <tr style="background: <%= @devices.index(device)%2==0 ? '#ddd' : '#eee' %>">
+      <% device.attributes.values.each do |val| %>
+        <td> <%= val %> </td>
+      <% end %>
+    </tr>
+  <%end%>
+  </table>
+<% else %>
+  No devices
+<% end %>

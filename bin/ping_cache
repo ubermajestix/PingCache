@@ -1,0 +1,10 @@
+#!/opt/local/bin/ruby
+require 'open-uri'
+`ifconfig | grep broadcast | cut -d " " -f6 | xargs -0 ping -c2`
+macs = `arp -a | cut -d" " -f4`
+macs = macs.split("\n")
+puts macs.inspect
+puts macs.length
+macs.each do |mac|
+  open("http://0.0.0.0:3000/register/#{mac}/loc1")
+end
