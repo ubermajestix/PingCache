@@ -17,9 +17,9 @@ end
  get "/register/:mac/:loc_id" do
    #find or create device
    @device = Device.find_or_create(:mac=>params[:mac])
-   
    #find or create location -> create should eventually be done by client
-   
+   @loc = Location.find_or_create(:ip=>@env['REMOTE_ADDR'])
+   "Device: #{@device.inspect} Location: #{@loc.inspect}"
  end
  
  get '/locations' do 
