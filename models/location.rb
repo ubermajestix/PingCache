@@ -16,7 +16,7 @@ class Location
   
   def self.find_or_create(opts={})
     loc = Location.first(:ip=>opts[:ip])
-    unless device
+    unless loc
       loc = Location.new(:ip=>opts[:ip]) 
       saved = loc.save
       if saved == false
