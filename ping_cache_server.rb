@@ -39,10 +39,16 @@ end
    erb :devices
  end
  
- get '/device/tracker/:device_id' do
+ get "/device/tracker/:device_id" do
    @device = Device.get(params[:device_id])
    @device_locations = @device.tracks
    erb :device_tracker
+ end
+ 
+ get "/location/tracker/:locaiton_id" do
+   @location = Location.get(params[:location_id])
+   @devices = @location.tracks
+   erb :location_tracker
  end
  
  get '/device_locations' do
