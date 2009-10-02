@@ -1,0 +1,15 @@
+<h2>Devices at <%= @location.ip %></h2>
+<%if @devices %>
+  <table cellspacing=0 cellpadding=5>
+    <%for track in @devices %>
+      <tr>
+        <td> <%= track.device.mac %> </td>
+        <td> <%= track.local_name %> </td>
+        <td> <%= track.local_ip %> </td>
+        <td><%= track.created_at %></td>
+      </tr>
+    <%end%>
+  </table>
+<% else %>
+  Location hasn't seen any devices
+<% end %>
