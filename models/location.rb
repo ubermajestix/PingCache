@@ -8,7 +8,8 @@ class Location
   property :mac, String
   property :name, String
   # has n, :users, :through => :device_locations => :device
-  # has n, :devices, :through => :device_locations
+  has n, :device_locations
+  has n, :devices, :through => :device_locations
   
   def users
     self.devices.collect{|d| d.users}.uniq

@@ -7,7 +7,7 @@ search_me = ::File.expand_path(::File.join(::File.dirname(__FILE__), 'models', '
 Dir.glob(search_me).sort.each {|rb| require rb}
 
 set :static, true
-DataMapper.setup(:default, ENV['DATABASE_URL'] || "sqlite3://#{Dir.pwd}/ttl.db")
+DataMapper.setup(:default, ENV['DATABASE_URL'] || "sqlite3://#{Dir.pwd}/pc.db")
 ENV['RACK_ENV'] != 'production' ? DataMapper.auto_migrate! : DataMapper.auto_upgrade!
 
 get '/' do
@@ -21,7 +21,8 @@ end
    #find or create location -> create should eventually be done by client
    puts "ip: #{@env['REMOTE_ADDR']}"
    @loc = Location.find_or_create(:ip=>@env['REMOTE_ADDR'])
-   "Device: #{@device.inspect} Location: #{@loc.inspect}"
+   @device.locations << @loc
+   "Device: #{@device.mac} @ Location: #{@loc.ip}"
  end
  
  get '/locations' do 
