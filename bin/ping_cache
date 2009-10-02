@@ -1,4 +1,5 @@
 #!/opt/local/bin/ruby
+# TODO make main script
 require 'open-uri'
 `ifconfig | grep broadcast | cut -d " " -f6 | xargs -0 ping -c2`
 macs = `arp -a | cut -d" " -f4`
@@ -7,8 +8,8 @@ puts macs.inspect
 puts macs.length
 macs.each do |mac|  
   # url = ENV['RACK_ENV'].include?("development") ? '0.0.0.0:3000' : 'pingcache.heroku.com' if ENV['RACK_ENV']
-  # url = 'pingcache.heroku.com'
-  url = '0.0.0.0:3000'
+  url = 'pingcache.heroku.com'
+  # url = '0.0.0.0:3000'
   puts "opening http://pingcache.heroku.com/register/#{mac}"
   puts open("http://#{url}/register/#{mac}").read
 end
