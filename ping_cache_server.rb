@@ -17,12 +17,13 @@ end
  get "/register/:mac" do
    begin
      # TODO reate should eventually be done by client web ui
-     @loc = Location.find_or_create(:ip=>request.ip.to_s)
+     @loc = Location.find_or_create(:ip=>request.ip)
      @device = Device.find_or_create(:mac=>params[:mac])
+     Tracker.create(:device_id=>@device.id, :location_id=>@loc.id)
+     
      # TODO this works local not in prod...?
      @device.locations << @loc
      @device.save
-     Tracker.create(:device_id=>@device.id, :location_id=>@loc.id)
      "Device: #{@device.mac} @ Location: #{@loc.ip}"
    rescue StandardError => e
      "Error: #{e.class} => #{e.message} \n #{e.backtrace.join("\n")}"
