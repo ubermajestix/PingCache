@@ -2,9 +2,9 @@
 
 <%if @device_locations %>
 <table cellspacing=0 cellpadding=5>
-  <%for loc in @device_locations %>
+  <%for track in @device_locations %>
     <tr>
-      <td><%= loc.location.ip %></td> <td><%= loc.created_at %></td>
+      <td><%= track.location_id %></td> <td><%= track.created_at %></td>
     </tr>
   <%end%>
 </table>

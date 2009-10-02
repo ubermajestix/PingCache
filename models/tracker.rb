@@ -4,6 +4,6 @@ class Tracker
   property :device_id,    Integer, :key => true
   property :location_id,      Integer, :key => true
   property :created_at, DateTime, :default => Proc.new {DateTime.now}
-  # has 1, :location
+  # has n, :locations
   # has n, :devices
 end
