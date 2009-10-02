@@ -6,6 +6,6 @@ class User
   property :updated_at, DateTime, :default => Proc.new {DateTime.now}
   property :email, String
   property :name, String
-  has n, :devices
+  has n, :locations
   
 end
