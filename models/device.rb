@@ -5,6 +5,8 @@ class Device
   property :user_id, Integer #pairing devices and users has to be somewhat definitive -> user must prove they have control of the device
   property :created_at, DateTime, :default => Proc.new {DateTime.now}
   property :mac, String
+  property :manufacturer_id, Integer
+  belongs_to :manufacturer
   has 1, :user
   has n, :tracker
   has n, :locations, :through => :tracker

@@ -1,7 +1,18 @@
-puts ENV['RACK_ENV']
-if ENV['RACK_ENV'].include?('server')
-  require 'ping_cache_server'
-elsif ENV['RACK_ENV'].include?('client')
-  require 'ping_cache_client'
+require 'rubygems'
+require 'lib/ping_cache'
+
+class PingCacheServer < PingCache::Server    
+  PingCache.initialize
+  # PingCache.initialize(:environment=>ENV['RACK_ENV'] || "development")
 end
-run Sinatra::Application
+
+class PingCacheClient < PingCache::Client   
+  PingCache.initialize
+  # PingCache.initialize(:environment=>ENV['RACK_ENV'] || "development")
+end
+
+if ENV['RACK_ENV'].include?('server')
+  run PingCacheServer.new
+elsif ENV['RACK_ENV'].include?('client')
+  run PingCacheClient.new
+end
