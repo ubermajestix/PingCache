@@ -1,0 +1,14 @@
+<h2>Locations for Device <%= @device.mac %></h2>
+
+<%if @device_locations %>
+<table cellspacing=0 cellpadding=5>
+  <%for loc in @device_locations %>
+    <tr>
+      <td><%= loc.location.ip %></td> <td><%= loc.created_at %></td>
+    </tr>
+  <%end%>
+</table>
+<% else %>
+Device hasn't been anywhere
+<% end %>
+seen at: <%= @device.locations.map(&:ip).join("</br>") %>

@@ -21,4 +21,8 @@ class Device
     end
     return device
   end
+  
+  def tracks
+    Tracker.get(:device_id=>self.id)
+  end
 end

@@ -16,10 +16,12 @@ end
 
  get "/register/:mac" do
    begin
-     @device = Device.find_or_create(:mac=>params[:mac])
      # TODO reate should eventually be done by client web ui
      @loc = Location.find_or_create(:ip=>request.ip.to_s)
-     @device.locations << @loc  
+     @device = Device.find_or_create(:mac=>params[:mac])
+     @device.locations << @loc
+     @device.save
+     Tracker.create(:device_id=>@device.id, :location_id=>@loc.id)
      "Device: #{@device.mac} @ Location: #{@loc.ip}"
    rescue StandardError => e
      "Error: #{e.class} => #{e.message} \n #{e.backtrace.join("\n")}"
@@ -36,8 +38,13 @@ end
    erb :devices
  end
  
- get '/device_locations/:device_id' do
+ get '/device/tracker/:device_id' do
    @device = Device.get(params[:device_id])
-   @device_locations = DeviceLocation.get(:device_id=>@device.id)
+   @device_locations = @device.tracks
+   erb :device_tracker
+ end
+ 
+ get '/device_locations' do
+   @device_locations = DeviceLocations.all
    erb :device_locations
  end
