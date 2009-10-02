@@ -6,4 +6,5 @@ class Manufacturer
   property :created_at, DateTime, :default => Proc.new {DateTime.now}
   property :updated_at, DateTime, :default => Proc.new {DateTime.now}
   has n, :devices
+  validates_is_unique :mac
 end

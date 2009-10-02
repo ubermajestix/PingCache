@@ -55,7 +55,16 @@ module PingCache
     def load_manufacturers
       puts "loading manufacturers table"
       macs = YAML.load_file( "#{Dir.pwd}/lib/manufacturers.yml" )
-      macs.each{|m| Manufacturer.create(:mac=>m.first, :name=>m.last)}
+      macs.each{|m| puts m.first; Manufacturer.create(:mac=>m.first, :name=>m.last)}
+    end
+    
+    def device_manufactures
+      @devices = Device.all(:manufacturer_id => nil)
+      @devices.each do |device| 
+        man = Manufacturer.get(:mac => device.mac.split(":")[0,3].join(":"))
+        device.manufacturer_id = man.id
+        device.save      
+      end
     end
     
     def devices
