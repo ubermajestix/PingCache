@@ -1,9 +1,4 @@
-require 'rubygems'
-require 'dm-core'
-require 'dm-validations'
-search_me = ::File.expand_path(::File.join(::File.dirname(__FILE__), '..', 'models', '*.rb'))
-Dir.glob(search_me).sort.each {|rb| require rb}
-
+require File.join(File.dirname(__FILE__), %w[.. ping_cache_setup])
 
 Spec::Runner.configure do |config|
   DataMapper.setup(:default, ENV['DATABASE_URL'] || "sqlite3://#{Dir.pwd}/pc_test.db")
