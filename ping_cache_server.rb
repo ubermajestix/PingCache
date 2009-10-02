@@ -17,7 +17,7 @@ end
  get "/register/:mac" do
    @device = Device.find_or_create(:mac=>params[:mac])
    # TODO reate should eventually be done by client web ui
-   @loc = Location.find_or_create(:ip=>@env['REMOTE_ADDR'])
+   @loc = Location.find_or_create(:ip=>request.ip)
    @device.locations << @loc
    "Device: #{@device.mac} @ Location: #{@loc.ip}"
  end
