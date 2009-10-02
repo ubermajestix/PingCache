@@ -6,8 +6,8 @@ class Device
   property :created_at, DateTime, :default => Proc.new {DateTime.now}
   property :mac, String
   has 1, :user
-  has n, :device_locations
-  has n, :locations, :through => :device_locations
+  # has n, :device_locations
+  has n, :locations, :through => Resource
   validates_is_unique :mac
   
   def self.find_or_create(opts={})

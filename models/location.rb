@@ -7,8 +7,8 @@ class Location
   property :updated_at, DateTime, :default => Proc.new {DateTime.now}
   property :mac, String
   property :name, String
-  has n, :device_locations
-  has n, :devices, :through => :device_locations
+  # has n, :device_locations
+  has n, :devices, :through => Resource
   
   def self.find_or_create(opts={})
     loc = Location.first(:ip=>opts[:ip])
