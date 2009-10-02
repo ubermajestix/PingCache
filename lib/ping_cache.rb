@@ -57,13 +57,15 @@ module PingCache
       t = File.open("#{Dir.pwd}/lib/oui.txt"){|f| f.read}.split("\n")
       m = t.collect{|e| e.split("(hex)")}
       m.reject!{|e| e.length < 2}
-      m.each{|e| puts e.first.strip Manufacturer.create(:mac=>e.first.strip, :name=>e.last.strip)}
+      m.each{|e| Manufacturer.create(:mac=>e.first.strip, :name=>e.last.strip)}
     end
     
     def device_manufactures
       @devices = Device.all(:manufacturer_id => nil)
       @devices.each do |device| 
-        partial_mac = device.mac.split(":")[0,3].join(":")
+        partial_mac = device.mac.split(":")[0,3]
+        partial_mac[0] = "00" if partial_mac.first == "0"
+        partial_mac = partial_mac.join(":")
         puts partial_mac
         man = Manufacturer.get(:mac => partial_mac)
         puts man.inspect
