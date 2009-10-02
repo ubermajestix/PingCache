@@ -14,17 +14,13 @@ get '/' do
   erb :index
 end
 
- get "/register/:mac" do
+ get "/register/:mac/:local_ip/:local_name" do |mac, ip, name|
    begin
      # TODO reate should eventually be done by client web ui
      @loc = Location.find_or_create(:ip=>request.ip)
-     @device = Device.find_or_create(:mac=>params[:mac])
-     Tracker.create(:device_id=>@device.id, :location_id=>@loc.id)
-     
-     # TODO this works local not in prod...?
-     @device.locations << @loc
-     @device.save
-     "Device: #{@device.mac} @ Location: #{@loc.ip}"
+     @device = Device.find_or_create(:mac=>mac)
+     @track = Tracker.create(:device_id=>@device.id, :location_id=>@loc.id, :local_ip=>ip, :local_name=>Rack::Utils.unescape(name))
+     "Device: #{@device.mac} @ Location: #{@loc.ip} name: #{@track.local_name}"
    rescue StandardError => e
      "Error: #{e.class} => #{e.message} \n #{e.backtrace.join("\n")}"
    end
@@ -54,6 +50,6 @@ end
  end
  
  get '/device_locations' do
-   @device_locations = DeviceLocation.all
+   @device_locations = Tracker.all
    erb :device_locations
  end

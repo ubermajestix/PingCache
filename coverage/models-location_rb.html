@@ -156,7 +156,7 @@
       C0 code coverage information
     </h3>
     <p>
-      Generated on Thu Oct 01 20:51:18 -0600 2009 with 
+      Generated on Fri Oct 02 10:37:31 -0600 2009 with 
       <a href='http://eigenclass.org/hiki/rcov'>
         rcov 0.8.1.2
       </a>
@@ -174,45 +174,48 @@
     <td class='heading'> Total coverage </td> <td class='heading'> Code coverage
     </td> </tr> </thead> <tbody> <tr class='light'> <td> <a
     href='models-location_rb.html'> models/location.rb </a> </td> <td
-    class='lines_total'> <tt> 25 </tt> </td> <td class='lines_code'> <tt> 22
+    class='lines_total'> <tt> 29 </tt> </td> <td class='lines_code'> <tt> 25
     </tt> </td> <td> <table cellspacing='0' align='right' cellpadding='0'> <tr>
-    <td> <tt class='coverage_total'> 52.0% </tt> &nbsp; </td> <td> <table
+    <td> <tt class='coverage_total'> 51.7% </tt> &nbsp; </td> <td> <table
     class='percent_graph' cellspacing='0' width='100' cellpadding='0'> <tr> <td
     class='covered' width='52' /> <td class='uncovered' width='48' /> </tr>
     </table> </td> </tr> </table> </td> <td> <table cellspacing='0'
-    align='right' cellpadding='0'> <tr> <td> <tt class='coverage_code'> 50.0%
+    align='right' cellpadding='0'> <tr> <td> <tt class='coverage_code'> 48.0%
     </tt> &nbsp; </td> <td> <table class='percent_graph' cellspacing='0'
-    width='100' cellpadding='0'> <tr> <td class='covered' width='50' /> <td
-    class='uncovered' width='50' /> </tr> </table> </td> </tr> </table> </td>
-    </tr> </tbody> </table><pre><span class="marked1"><a name="line1"></a> 1
-    class Location </span><span class="inferred0"><a name="line2"></a> 2
-    </span><span class="marked1"><a name="line3"></a> 3 include
-    DataMapper::Resource </span><span class="marked0"><a name="line4"></a> 4
-    property :id, Serial </span><span class="marked1"><a name="line5"></a> 5
-    property :ip, String </span><span class="marked0"><a name="line6"></a> 6
+    width='100' cellpadding='0'> <tr> <td class='covered' width='48' /> <td
+    class='uncovered' width='52' /> </tr> </table> </td> </tr> </table> </td>
+    </tr> </tbody> </table><pre><span class="marked0"><a name="line1"></a> 1
+    class Location </span><span class="inferred1"><a name="line2"></a> 2
+    </span><span class="marked0"><a name="line3"></a> 3 include
+    DataMapper::Resource </span><span class="marked1"><a name="line4"></a> 4
+    property :id, Serial </span><span class="marked0"><a name="line5"></a> 5
+    property :ip, String </span><span class="marked1"><a name="line6"></a> 6
     property :created_at, DateTime, :default =&gt; Proc.new {DateTime.now}
-    </span><span class="marked1"><a name="line7"></a> 7 property :updated_at,
+    </span><span class="marked0"><a name="line7"></a> 7 property :updated_at,
     DateTime, :default =&gt; Proc.new {DateTime.now} </span><span
-    class="marked0"><a name="line8"></a> 8 property :mac, String </span><span
-    class="marked1"><a name="line9"></a> 9 property :name, String </span><span
-    class="marked0"><a name="line10"></a>10 has n, :device_locations
-    </span><span class="marked1"><a name="line11"></a>11 has n, :devices,
-    :through =&gt; :device_locations </span><span class="inferred0"><a
-    name="line12"></a>12 </span><span class="marked1"><a name="line13"></a>13
-    def self.find_or_create(opts={}) </span><span class="uncovered0"><a
-    name="line14"></a>14 loc = Location.first(:ip=&gt;opts[:ip]) </span><span
-    class="uncovered1"><a name="line15"></a>15 unless loc </span><span
-    class="uncovered0"><a name="line16"></a>16 loc =
-    Location.new(:ip=&gt;opts[:ip]) </span><span class="uncovered1"><a
-    name="line17"></a>17 saved = loc.save </span><span class="uncovered0"><a
-    name="line18"></a>18 if saved == false </span><span class="uncovered1"><a
-    name="line19"></a>19 return loc.errors </span><span class="uncovered0"><a
-    name="line20"></a>20 end </span><span class="uncovered1"><a
-    name="line21"></a>21 end </span><span class="uncovered0"><a
-    name="line22"></a>22 return loc </span><span class="uncovered1"><a
-    name="line23"></a>23 end </span><span class="uncovered0"><a
-    name="line24"></a>24 </span><span class="uncovered1"><a name="line25"></a>25
-    end </span></pre>
+    class="marked1"><a name="line8"></a> 8 property :mac, String </span><span
+    class="marked0"><a name="line9"></a> 9 property :name, String </span><span
+    class="marked1"><a name="line10"></a>10 has n, :tracker </span><span
+    class="marked0"><a name="line11"></a>11 has n, :devices, :through =&gt;
+    :tracker </span><span class="inferred1"><a name="line12"></a>12 </span><span
+    class="marked0"><a name="line13"></a>13 def self.find_or_create(opts={})
+    </span><span class="uncovered1"><a name="line14"></a>14 loc =
+    Location.first(:ip=&gt;opts[:ip]) </span><span class="uncovered0"><a
+    name="line15"></a>15 unless loc </span><span class="uncovered1"><a
+    name="line16"></a>16 loc = Location.new(:ip=&gt;opts[:ip]) </span><span
+    class="uncovered0"><a name="line17"></a>17 saved = loc.save </span><span
+    class="uncovered1"><a name="line18"></a>18 if saved == false </span><span
+    class="uncovered0"><a name="line19"></a>19 return loc.errors </span><span
+    class="uncovered1"><a name="line20"></a>20 end </span><span
+    class="uncovered0"><a name="line21"></a>21 end </span><span
+    class="uncovered1"><a name="line22"></a>22 return loc </span><span
+    class="uncovered0"><a name="line23"></a>23 end </span><span
+    class="inferred1"><a name="line24"></a>24 </span><span class="marked0"><a
+    name="line25"></a>25 def tracks </span><span class="uncovered1"><a
+    name="line26"></a>26 Tracker.all(:location_id=&gt;self.id) </span><span
+    class="uncovered0"><a name="line27"></a>27 end </span><span
+    class="uncovered1"><a name="line28"></a>28 </span><span
+    class="uncovered0"><a name="line29"></a>29 end </span></pre>
     <hr />
     <p> Generated using the <a href='http://eigenclass.org/hiki.rb?rcov'> rcov
     code coverage analysis tool for Ruby </a> version 0.8.1.2. </p>

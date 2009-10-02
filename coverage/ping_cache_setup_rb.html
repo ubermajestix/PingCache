@@ -156,7 +156,7 @@
       C0 code coverage information
     </h3>
     <p>
-      Generated on Thu Oct 01 20:51:18 -0600 2009 with 
+      Generated on Fri Oct 02 10:37:31 -0600 2009 with 
       <a href='http://eigenclass.org/hiki/rcov'>
         rcov 0.8.1.2
       </a>
@@ -184,26 +184,26 @@
     </tt> &nbsp; </td> <td> <table class='percent_graph' cellspacing='0'
     width='100' cellpadding='0'> <tr> <td class='covered' width='100' /> <td
     class='uncovered' width='0' /> </tr> </table> </td> </tr> </table> </td>
-    </tr> </tbody> </table><pre><span class="marked1"><a name="line1"></a> 1
-    require 'rubygems' </span><span class="marked0"><a name="line2"></a> 2
-    require 'dm-core' </span><span class="marked1"><a name="line3"></a> 3
-    require 'dm-validations' </span><span class="marked0"><a name="line4"></a> 4
+    </tr> </tbody> </table><pre><span class="marked0"><a name="line1"></a> 1
+    require 'rubygems' </span><span class="marked1"><a name="line2"></a> 2
+    require 'dm-core' </span><span class="marked0"><a name="line3"></a> 3
+    require 'dm-validations' </span><span class="marked1"><a name="line4"></a> 4
     search_me = ::File.expand_path(::File.join(::File.dirname(__FILE__),
-    'models', '*.rb')) </span><span class="marked1"><a name="line5"></a> 5
+    'models', '*.rb')) </span><span class="marked0"><a name="line5"></a> 5
     Dir.glob(search_me).sort.each {|rb| require rb} </span><span
-    class="marked0"><a name="line6"></a> 6 DataMapper.setup(:default,
+    class="marked1"><a name="line6"></a> 6 DataMapper.setup(:default,
     ENV['DATABASE_URL'] || &quot;sqlite3://#{Dir.pwd}/pc_test.db&quot;)
-    </span><span class="marked1"><a name="line7"></a> 7 DataMapper.auto_migrate!
-    </span><span class="marked0"><a name="line8"></a> 8 Devices = {}
-    </span><span class="marked1"><a name="line9"></a> 9 Locations = {}
-    </span><span class="inferred0"><a name="line10"></a>10 </span><span
-    class="marked1"><a name="line11"></a>11 Devices[:iphone] =
+    </span><span class="marked0"><a name="line7"></a> 7 DataMapper.auto_migrate!
+    </span><span class="marked1"><a name="line8"></a> 8 Devices = {}
+    </span><span class="marked0"><a name="line9"></a> 9 Locations = {}
+    </span><span class="inferred1"><a name="line10"></a>10 </span><span
+    class="marked0"><a name="line11"></a>11 Devices[:iphone] =
     Device.create(:mac=&gt;&quot;0:13:72:3b:e2:99&quot;) </span><span
-    class="marked0"><a name="line12"></a>12 Devices[:mac] =
+    class="marked1"><a name="line12"></a>12 Devices[:mac] =
     Device.create(:mac=&gt;&quot;0:18:8b:ab:d5:82&quot;) </span><span
-    class="marked1"><a name="line13"></a>13 Locations[:ci] =
+    class="marked0"><a name="line13"></a>13 Locations[:ci] =
     Location.create(:ip=&gt;&quot;205.123.10.5&quot;, :name=&gt;&quot;collective
-    intel&quot;) </span><span class="marked0"><a name="line14"></a>14
+    intel&quot;) </span><span class="marked1"><a name="line14"></a>14
     Locations[:the_cup] = Location.create(:ip=&gt;&quot;123.45.6.78&quot;,
     :name=&gt;&quot;The Cup&quot;) </span></pre>
     <hr />
