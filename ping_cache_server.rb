@@ -36,7 +36,8 @@ end
    erb :devices
  end
  
- get '/device_locations' do
-   @device_locations = DeviceLocation.all
+ get '/device_locations/:device_id' do
+   @device = Device.get(params[:device_id])
+   @device_locations = DeviceLocation.get(:device_id=>@device.id)
    erb :device_locations
  end

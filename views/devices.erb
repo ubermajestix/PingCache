@@ -11,6 +11,7 @@
       <% device.attributes.values.each do |val| %>
         <td> <%= val %> </td>
       <% end %>
+      <td> <a href="/device_locations/<%= device.id %>">locations<a> </td>
     </tr>
   <%end%>
   </table>
