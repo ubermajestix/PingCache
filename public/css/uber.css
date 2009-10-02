@@ -1,0 +1,9 @@
+body {
+	background-color: #333;
+	color: #bbb;
+	font-family: Arial, "MS Trebuchet", sans-serif;
+	letter-spacing: 0.0em;
+	font-size: 14.5px;
+}
+
+div#wrapper{width:800px; padding:20px; border: 1px solid #999; margin-top:30px auto 20px auto;}
