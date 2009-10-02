@@ -1,9 +1,0 @@
-<table>
-<%for dl in @device_locations %>
-  <tr>
-    <td><%= dl.device.mac %></td>
-    <td><%= dl.location.ip %></td>
-    <td><%= dl.created_at %></td>
-  </tr>
-<%end%>
-</table>

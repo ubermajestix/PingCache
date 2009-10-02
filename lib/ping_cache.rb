@@ -51,19 +51,26 @@ module PingCache
       Dir.glob(search_me).sort.each{|rb| puts "require #{rb}"}
       Dir.glob(search_me).sort.each {|rb| require rb}
     end  
-  
+    # TODO rebuild yaml file, load into sql from oui.txt
+    
     def load_manufacturers
-      puts "loading manufacturers table"
-      macs = YAML.load_file( "#{Dir.pwd}/lib/manufacturers.yml" )
-      macs.each{|m| puts m.first; Manufacturer.create(:mac=>m.first, :name=>m.last)}
+      t = File.open("#{Dir.pwd}/lib/oui.txt"){|f| f.read}.split("\n")
+      m = t.collect{|e| e.split("(hex)")}
+      m.reject!{|e| e.length < 2}
+      m.each{|e| puts e.first.strip Manufacturer.create(:mac=>e.first.strip, :name=>e.last.strip)}
     end
     
     def device_manufactures
       @devices = Device.all(:manufacturer_id => nil)
       @devices.each do |device| 
-        man = Manufacturer.get(:mac => device.mac.split(":")[0,3].join(":"))
-        device.manufacturer_id = man.id
-        device.save      
+        partial_mac = device.mac.split(":")[0,3].join(":")
+        puts partial_mac
+        man = Manufacturer.get(:mac => partial_mac)
+        puts man.inspect
+        if man
+          device.manufacturer_id = man.id if man
+          device.save 
+        end     
       end
     end
     
