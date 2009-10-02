@@ -8,5 +8,5 @@ puts macs.length
 macs.each do |mac|
   # url = ENV['RACK_ENV'].include?("development") ? '0.0.0.0:3000' : 'pingcache.heroku.com'
   puts "opening http://pingcache.heroku.com/register/#{mac}"
-  open("http://pingcache.heroku.com/register/#{mac}")
+  puts open("http://pingcache.heroku.com/register/#{mac}")
 end
