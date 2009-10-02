@@ -1,12 +1,20 @@
 #!/opt/local/bin/ruby
 # TODO make main script
 require 'open-uri'
+require 'rubygems'
+require 'rack'
+
 `ifconfig | grep broadcast | cut -d " " -f6 | xargs -0 ping -c2`
-macs = `arp -a | cut -d" " -f4`
-macs = macs.split("\n")
+macs = `arp -a `
+macs = macs.split("\n").collect{|entry| entry.split(" ")}.collect{|entry| [entry[0], entry[1], entry[3]]}
 puts macs.inspect
 puts macs.length
-macs.each do |mac|  
-  puts "opening http://pingcache.heroku.com/register/#{mac}"
-  puts open("http://pingcache.heroku.com/register/#{mac}").read
+macs.each do |entry|  
+  mac = entry.last
+  ip = entry[1]
+  ip.gsub!(/[\(\)]/,'') if ip
+  name = entry.first
+  name = '-not provided-' if name == "?"
+  puts "opening http://pingcache.heroku.com/register/#{mac}/#{ip}/#{Rack::Utils.escape(name)}"
+  puts open("http://pingcache.heroku.com/register/#{mac}/#{ip}/#{Rack::Utils.escape(name)}").read
 end
