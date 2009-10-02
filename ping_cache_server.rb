@@ -15,11 +15,8 @@ get '/' do
 end
 
  get "/register/:mac" do
-   #find or create device
-   puts "registering mac: #{params[:mac]}"
    @device = Device.find_or_create(:mac=>params[:mac])
-   #find or create location -> create should eventually be done by client
-   logger.info "ip: #{@env['REMOTE_ADDR']}"
+   # TODO reate should eventually be done by client web ui
    @loc = Location.find_or_create(:ip=>@env['REMOTE_ADDR'])
    @device.locations << @loc
    "Device: #{@device.mac} @ Location: #{@loc.ip}"
