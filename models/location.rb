@@ -22,4 +22,8 @@ class Location
     return loc
   end
   
+  def tracks
+    Tracker.all(:location_id=>self.id)
+  end
+  
 end

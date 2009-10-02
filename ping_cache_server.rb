@@ -19,8 +19,8 @@ end
      # TODO reate should eventually be done by client web ui
      @loc = Location.find_or_create(:ip=>request.ip.to_s)
      @device = Device.find_or_create(:mac=>params[:mac])
-     # @device.locations << @loc
-     # @device.save
+     @device.locations << @loc
+     @device.save
      Tracker.create(:device_id=>@device.id, :location_id=>@loc.id)
      "Device: #{@device.mac} @ Location: #{@loc.ip}"
    rescue StandardError => e
@@ -45,6 +45,6 @@ end
  end
  
  get '/device_locations' do
-   @device_locations = DeviceLocations.all
+   @device_locations = DeviceLocation.all
    erb :device_locations
  end

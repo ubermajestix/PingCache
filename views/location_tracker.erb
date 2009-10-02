@@ -1,0 +1,14 @@
+<h2>Devices at <%= @location.ip %></h2>
+
+<%if @devices %>
+<table cellspacing=0 cellpadding=5>
+  <%for track in @devices %>
+    <tr>
+      <td><%= track.location_id %></td> <td><%= track.created_at %></td>
+    </tr>
+  <%end%>
+</table>
+<% else %>
+Location hasn't seen any devices
+<% end %>
+seen at: <%= @location.devices.map(&:mac).join("</br>") %>

@@ -23,6 +23,6 @@ class Device
   end
   
   def tracks
-    Tracker.get(:device_id=>self.id)
+    Tracker.all(:device_id=>self.id)
   end
 end
