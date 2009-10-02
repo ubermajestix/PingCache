@@ -5,8 +5,10 @@ macs = `arp -a | cut -d" " -f4`
 macs = macs.split("\n")
 puts macs.inspect
 puts macs.length
-macs.each do |mac|
-  # url = ENV['RACK_ENV'].include?("development") ? '0.0.0.0:3000' : 'pingcache.heroku.com'
+macs.each do |mac|  
+  # url = ENV['RACK_ENV'].include?("development") ? '0.0.0.0:3000' : 'pingcache.heroku.com' if ENV['RACK_ENV']
+  # url = 'pingcache.heroku.com'
+  url = '0.0.0.0:3000'
   puts "opening http://pingcache.heroku.com/register/#{mac}"
-  puts open("http://pingcache.heroku.com/register/#{mac}").read
+  puts open("http://#{url}/register/#{mac}").read
 end

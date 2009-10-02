@@ -15,11 +15,15 @@ get '/' do
 end
 
  get "/register/:mac" do
-   @device = Device.find_or_create(:mac=>params[:mac])
-   # TODO reate should eventually be done by client web ui
-   @loc = Location.find_or_create(:ip=>request.ip)
-   @device.locations << @loc
-   "Device: #{@device.mac} @ Location: #{@loc.ip}"
+   begin
+     @device = Device.find_or_create(:mac=>params[:mac])
+     # TODO reate should eventually be done by client web ui
+     @loc = Location.find_or_create(:ip=>request.ip)
+     # @device.locations << @loc
+     "Device: #{@device.mac} @ Location: #{@loc.ip}"
+   rescue StandardError => e
+     "Error: #{e.class} => #{e.message} \n #{e.backtrace.join("\n")}"
+   end
  end
  
  get '/locations' do 
