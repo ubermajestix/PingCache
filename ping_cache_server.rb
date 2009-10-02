@@ -23,7 +23,7 @@ end
      
      # TODO this works local not in prod...?
      @device.locations << @loc
-     @device.save
+     # @device.save
      "Device: #{@device.mac} @ Location: #{@loc.ip}"
    rescue StandardError => e
      "Error: #{e.class} => #{e.message} \n #{e.backtrace.join("\n")}"
