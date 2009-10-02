@@ -11,6 +11,7 @@
       <% location.attributes.values.each do |val| %>
         <td> <%= val %> </td>
       <% end %>
+      <td><a href="/location/tracker/<%= location.id %>">device tracker</a></td>
     </tr>
   <%end%>
   </table>

@@ -20,8 +20,8 @@ end
      @loc = Location.find_or_create(:ip=>request.ip.to_s)
      @device = Device.find_or_create(:mac=>params[:mac])
      # TODO this works local not in prod...?
-     # @device.locations << @loc
-     #     @device.save
+     @device.locations << @loc
+     @device.save
      Tracker.create(:device_id=>@device.id, :location_id=>@loc.id)
      "Device: #{@device.mac} @ Location: #{@loc.ip}"
    rescue StandardError => e
@@ -40,13 +40,14 @@ end
  end
  
  get "/device/tracker/:device_id" do
-   @device = Device.get(:id=>params[:device_id])
+   puts params[:device_id]
+   @device = Device.get(params[:device_id])
    @device_locations = @device.tracks
    erb :device_tracker
  end
  
- get "/location/tracker/:locaiton_id" do
-   @location = Location.get(:id=>params[:location_id])
+ get "/location/tracker/:location_id" do
+   @location = Location.get(params[:location_id])
    @devices = @location.tracks
    erb :location_tracker
  end

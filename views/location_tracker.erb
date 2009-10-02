@@ -4,7 +4,8 @@
 <table cellspacing=0 cellpadding=5>
   <%for track in @devices %>
     <tr>
-      <td><%= track.location_id %></td> <td><%= track.created_at %></td>
+      <td> <%= track.device.mac %> </td>
+       <td><%= track.created_at %></td>
     </tr>
   <%end%>
 </table>
