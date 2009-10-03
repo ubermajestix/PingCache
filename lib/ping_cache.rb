@@ -47,7 +47,7 @@ module PingCache
       m = t.collect{|e| e.split("(hex)")}
       m.reject!{|e| e.length < 2}
       # Character encoding issue on postgres
-      m.each{|e| Manufacturer.create(:mac=>e.first.strip.gsub("-",'').downcase, :name=>e.last.strip)}
+      m.each{|e| name = u(e.last.strip); Manufacturer.create(:mac=>e.first.strip.gsub("-",'').downcase, :name=>name)}
     end
     
     
