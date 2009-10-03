@@ -3,6 +3,7 @@ require 'dm-core'
 require 'dm-validations'
 require 'yaml'
 require 'sinatra/base'
+require 'encoding/character/utf-8'
 search_me = ::File.expand_path(::File.join(::File.dirname(__FILE__), '..', 'models', '*.rb'))
 Dir.glob(search_me).sort.each {|rb| require rb}
 module PingCache

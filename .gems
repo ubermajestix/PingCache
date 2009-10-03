@@ -1,3 +1,4 @@
+character-encodings --version 0.4.1
 dm-core --version 0.10.0 --source http://gems.datamapper.org
 dm-validations --version 0.10.0 --source http://gems.datamapper.org
 do_postgres --version 0.10.0 --source http://gems.datamapper.org
