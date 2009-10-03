@@ -8,23 +8,11 @@ Dir.glob(search_me).sort.each {|rb| require rb}
 module PingCache
   class << self
     def initialize
-      if ENV['RACK_ENV'] == 'production_server'       
-        #heroku postgres server...
-        DataMapper.setup(:default, ENV['DATABASE_URL'] || "sqlite3://#{Dir.pwd}/db/pc.db")
-        DataMapper.auto_upgrade!
-      elsif ENV['RACK_ENV'] == 'production_client'
-        DataMapper.setup(:default, ENV['DATABASE_URL'] || "sqlite3://#{Dir.pwd}/db/pc_client.db")
-        DataMapper.auto_upgrade!
-        #heroku postgres server...
-      else
-        puts "starting ping cache in #{ENV['RACK_ENV']} mode"
-        puts "opening sqlite3://#{Dir.pwd}/db/pc_test.db"
-        DataMapper.setup(:default, ENV['DATABASE_URL'] || "sqlite3://#{Dir.pwd}/db/pc_test.db")
-        DataMapper.auto_migrate!
-      end
+      init_db()
       return nil      
     end
     public :initialize
+
 
     def server_app
       puts "server apping away"
@@ -57,24 +45,10 @@ module PingCache
       t = File.open("#{Dir.pwd}/lib/oui.txt"){|f| f.read}.split("\n")
       m = t.collect{|e| e.split("(hex)")}
       m.reject!{|e| e.length < 2}
+      # Character encoding issue on postgres
       m.each{|e| Manufacturer.create(:mac=>e.first.strip.gsub("-",'').downcase, :name=>e.last.strip)}
     end
     
-    def device_manufactures
-      @devices = Device.all(:manufacturer_id => nil)
-      @devices.each do |device| 
-        partial_mac = device.mac.split(":")[0,3]
-        partial_mac[0] = "00" if partial_mac.first == "0"
-        partial_mac = partial_mac.join('')
-        puts partial_mac
-        man = Manufacturer.first(:mac => partial_mac.downcase.to_s)
-        puts man.inspect
-        if man
-          device.manufacturer_id = man.id if man
-          device.save 
-        end     
-      end
-    end
     
     def devices
       {}
@@ -82,6 +56,26 @@ module PingCache
     
     def locations
       {}
+    end
+    
+    def init_db
+      if ENV['RACK_ENV'] == 'production_server'       
+        #heroku postgres server...
+        DataMapper.setup(:default, ENV['DATABASE_URL'] || "sqlite3://#{Dir.pwd}/db/pc.db")
+        DataMapper.auto_upgrade!
+      elsif ENV['RACK_ENV'] == 'production_client'
+        DataMapper.setup(:default, ENV['DATABASE_URL'] || "sqlite3://#{Dir.pwd}/db/pc_client.db")
+        DataMapper.auto_upgrade!
+        #heroku postgres server...
+      elsif ENV['RACK_ENV'] == 'test'
+        DataMapper.setup(:default, ENV['DATABASE_URL'] || "sqlite3://#{Dir.pwd}/db/pc_test.db")  
+        DataMapper.auto_migrate!     
+      else
+        puts "starting ping cache in #{ENV['RACK_ENV']} mode"
+        puts "opening sqlite3://#{Dir.pwd}/db/pc_test.db"
+        DataMapper.setup(:default, ENV['DATABASE_URL'] || "sqlite3://#{Dir.pwd}/db/pc.db")
+      end
+      DataMapper.auto_upgrade! # use rake task db:migrate to blow away data and start over
     end
     
     def load_sample_data

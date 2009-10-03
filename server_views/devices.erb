@@ -8,10 +8,9 @@
   </tr>
   <%for device in @devices %>
     <tr style="background: <%= @devices.index(device)%2==0 ? '#ddd' : '#eee' %>">
-        <td> <%= device.mac %> </td>
-        <td> <%= device.manufacturer.name %> </td>
-        <td> <%= device.created_at.strftime("%H:%M %m/%d") %> </td>
-      <% end %>
+      <td> <%= device.mac %> </td>
+      <td> <%= device.manufacturer ? device.manufacturer.name : 'none' %> </td>
+      <td> <%= device.created_at.strftime("%H:%M %m/%d") %> </td>
       <td> <a href="/device/tracker/<%= device.id %>">track locations<a> </td>
     </tr>
   <%end%>

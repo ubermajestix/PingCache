@@ -12112,9 +12112,9 @@ company_id			Organization
 				San Jose CA 95134
 				UNITED STATES
 
-00-07-51   (hex)		m·u·t AG
-000751     (base 16)		m·u·t AG
-				Meßgeräte für Medizin- und Umwelttechnik
+00-07-51   (hex)		mEuEt AG
+000751     (base 16)		mEuEt AG
+				Meflgerte für Medizin- und Umwelttechnik
 				Am Marienhof 2
 				Wedel  22880
 				GERMANY
