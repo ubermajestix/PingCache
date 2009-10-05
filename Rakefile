@@ -2,7 +2,7 @@ load 'tasks/setup.rb'
 
 
 ensure_in_path 'lib'
-require 'ping_cache'
+# require 'ping_cache'
 
 task :default => 'spec:run'
 

@@ -5,9 +5,18 @@ require 'rubygems'
 require 'rack'
 # cron will fire this every minute 1 * * * *
 # it then will run 2 times sleeping for 25 seconds (to keep from overlapping)
+ifconfig=`which ifconfig`
+arp = `which arp`
+raise "ifconfig not found - please install or provide path" unless ifconfig
+raise "arp not found - please install or provide path" unless arp
+
 2.times do
-  `ifconfig | grep broadcast | cut -d " " -f6 | xargs -0 ping -c2`
-  macs = `arp -a `
+  ifconfig_command = "#{ifconfig.strip} | grep broadcast | cut -d \" \" -f6 | xargs -0 ping -c2"
+  puts ifconfig_command
+  `#{ifconfig_command}`
+  arp_command = "#{arp.strip} -a"
+  puts arp_command
+  macs = `#{arp_command}`
   macs = macs.split("\n").collect{|entry| entry.split(" ")}.collect{|entry| [entry[0], entry[1], entry[3]]}
   puts macs.inspect
   puts macs.length
