@@ -5,10 +5,13 @@ require 'rubygems'
 require 'rack'
 # cron will fire this every minute 1 * * * *
 # it then will run 2 times sleeping for 25 seconds (to keep from overlapping)
+puts "hello from cron"
 2.times do
-  @ifconfig=`which ifconfig`
-  @arp = `which arp`
-  raise "ifconfig not found - please install or provide path" unless @ifconfig
+  # TODO shelling out to which not working from cron(better way to get path to ifconfig/arp?)
+	puts `which ifconfig`
+  @ifconfig="/sbin/ifconfig"
+  @arp = "/usr/sbin/arp"
+	raise "ifconfig not found - please install or provide path" unless @ifconfig
   raise "arp not found - please install or provide path" unless @arp
   @ifconfig_command = "#{@ifconfig.strip} | grep broadcast | cut -d \" \" -f6 | xargs -0 ping -c2"
   puts @ifconfig_command
